@@ -1,0 +1,22 @@
+trigger:
+    - platform: event
+      event_type: telegram_command
+      event_data:
+        command: '/Meteo'
+action:
+    - service: telegram_bot.send_message
+      data_template:
+        message: ' 
+                The status is:
+                {{states.sensor.dark_sky_summary.state}}
+                , temperature {{states.sensor.dark_sky_temperature.state}} °C
+                , humidity {{states.sensor.dark_sky_humidity.state}} %
+                , wind speed {{states.sensor.dark_sky_wind_speed.state}} m/s
+                , wind bearing {{states.sensor.dark_sky_wind_bearing.state}} °
+                , pressure {{states.sensor.dark_sky_pressure.state}} mbar
+                , precip probability {{states.sensor.dark_sky_precip_probability.state}} %.
+                 Air Quality Index: {{states.sensor.waqi_lingotto_torino_piemonte_italy.state}}. '
+        keyboard:
+          - "/KnowTheHouse, /Meteo"
+          - "/SwitchLightsON, /SwitchLightsOFF"
+          - "/OpenDoorRequest, /start"

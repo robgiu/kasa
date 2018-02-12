@@ -1,0 +1,8 @@
+trigger:
+      - platform: state
+        entity_id: switch.sonoff
+        to: 'off'
+action:
+      service: notify.telegram
+      data:
+        message: 'Switch OFF'

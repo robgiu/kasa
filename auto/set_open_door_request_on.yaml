@@ -1,0 +1,11 @@
+trigger:
+    - platform: event
+      event_type: telegram_command
+      event_data:
+        command: '/OpenDoorRequest'
+action:
+    - service: input_boolean.turn_on
+      entity_id: input_boolean.open_door_request
+    - service: notify.telegram
+      data:
+        message: 'Now you can ring the bell to open the door.'

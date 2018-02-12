@@ -1,0 +1,17 @@
+trigger:
+    - platform: event
+      event_type: telegram_command
+      event_data:
+        command: '/KnowTheHouse'
+action:
+    - service: telegram_bot.send_message
+      data_template:
+        message: >
+                Today we have 
+                {{states.sensor.sonofft.state}}
+                 Celsius degrees and an humidity of
+                {{states.sensor.sonoffh.state}} %.
+        keyboard:
+          - "/KnowTheHouse, /Meteo"
+          - "/SwitchLightsON, /SwitchLightsOFF"
+          - "/OpenDoorRequest, /start"

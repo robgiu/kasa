@@ -1,0 +1,13 @@
+trigger:
+    - platform: event
+      event_type: telegram_command
+      event_data:
+        command: '/start'
+action:
+    - service: telegram_bot.send_message
+      data_template:
+        message: 'Welcome to Kasa Jasmina! What do you want to do?'
+        keyboard:
+          - "/KnowTheHouse, /Meteo"
+          - "/OpenDoorRequest"
+          - "/SwitchLightsON, /SwitchLightsOFF"

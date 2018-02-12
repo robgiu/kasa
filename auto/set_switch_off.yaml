@@ -1,0 +1,8 @@
+trigger:
+    - platform: event
+      event_type: telegram_command
+      event_data:
+        command: '/SwitchLightsOFF'
+action:
+    - service: switch.turn_off
+      entity_id: switch.sonoff

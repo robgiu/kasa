@@ -1,0 +1,19 @@
+trigger:
+    - platform: state
+      entity_id: binary_sensor.remote_entry
+      to: "on"
+    - platform: state
+      entity_id: binary_sensor.remote_entry
+      to: "off"
+condition:
+    condition: state
+    entity_id: input_boolean.open_door_request
+    state: 'on'
+action:
+    - service: switch.turn_on
+      entity_id: switch.remote_relay
+    - delay: 0:00:01
+    - service: input_boolean.turn_off
+      entity_id: input_boolean.open_door_request
+    - service: switch.turn_off
+      entity_id: switch.remote_relay

@@ -1,0 +1,8 @@
+trigger:
+      - platform: state
+        entity_id: switch.remote_relay
+        to: 'on'
+action:
+      service: notify.telegram
+      data:
+        message: 'Door open'
