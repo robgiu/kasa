@@ -1,0 +1,143 @@
+# progetto Kasa (c) 2018 Roberto Giungato
+
+homeassistant:
+  # Name of the location where Home Assistant is running
+  name: Home
+  # Location required to calculate the time the sun rises and sets
+  latitude: 45.050095
+  longitude: 7.668484
+  # Impacts weather/sunrise data (altitude above sea level in meters)
+  elevation: 50
+  # metric for Metric, imperial for Imperial
+  unit_system: metric
+  # Pick yours from here: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+  time_zone: Europe/Rome
+  # Customization file
+  customize: !include customize.yaml
+
+# Show links to resources in log and frontend
+introduction:
+
+# Enables the frontend
+frontend:
+
+mqtt:
+
+# Enables configuration UI
+config:
+
+http:
+  # Secrets are defined in the file secrets.yaml
+  api_password: !secret http_password
+  # Uncomment this if you are using SSL/TLS, running in Docker container, etc.
+  # base_url: example.duckdns.org:8123
+
+# Checks for available updates
+# Note: This component will send some information about your system to
+# the developers to assist with development of Home Assistant.
+# For more information, please see:
+# https://home-assistant.io/blog/2016/10/25/explaining-the-updater/
+updater:
+  # Optional, allows Home Assistant developers to focus on popular components.
+  # include_used_components: true
+
+# Discover some devices automatically
+discovery:
+
+# Allows you to issue voice commands from the frontend in enabled browsers
+conversation:
+
+# Enables support for tracking state changes over time
+history:
+
+# View all events in a logbook
+logbook:
+
+# Enables a map showing the location of tracked devices
+map:
+
+media_player:
+  - platform: cast
+
+media_extractor
+
+# Track the sun
+sun:
+
+# Weather
+weather:
+  - platform: openweathermap
+    api_key: !secret openweather
+
+binary_sensor:
+  - platform: rpi_gpio
+    ports:
+      12: Remote_entry
+
+input_boolean:
+  open_door_request:
+    initial: off
+
+sensor:
+  - platform: darksky
+    api_key: !secret darksky
+    monitored_conditions:
+            - summary
+            - temperature
+            - humidity
+            - precip_probability
+            - precip_intensity
+            - wind_speed
+            - pressure
+            - wind_bearing
+            - apparent_temperature
+            - icon
+  - platform: time_date
+    display_options:
+      - 'time_date'
+  - platform: mqtt
+    state_topic: tele/sonoff/SENSOR
+    name: sonoffT
+    value_template: '{{ value_json["DHT11"]["Temperature"] }}'
+  - platform: mqtt
+    state_topic: tele/sonoff/SENSOR
+    name: sonoffH
+    value_template: '{{ value_json["DHT11"]["Humidity"] }}'
+  - platform: waqi
+    token: !secret waqi
+    locations:
+      - torino
+
+switch:
+  - platform: mqtt
+    name: "Sonoff"
+    state_topic: "stat/sonoff/POWER"
+    command_topic: "cmnd/sonoff/power"
+    qos: 0
+    payload_on: "ON"
+    payload_off: "OFF"
+    optimistic: false
+    retain: true
+  - platform: rpi_gpio
+    ports:
+      14: remote relay
+    invert_logic: true
+
+notify:
+  - name: telegram
+    platform: telegram
+    api_key: !secret botkey
+    chat_id: !secret kasa_bot_chat_id
+
+telegram_bot:
+  platform: polling
+  api_key: !secret botkey
+  allowed_chat_ids:
+    - !secret kasa_bot_chat_id
+    - !secret kasa_group_chat_id
+    - !secret rob_chat_id
+    - !secret luisa_chat_id
+
+group: !include groups.yaml
+automation: !include_dir_list auto
+script: !include scripts.yaml
