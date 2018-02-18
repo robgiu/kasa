@@ -1,3 +1,5 @@
+# progetto Kasa (c) 2018 Roberto Giungato
+
 homeassistant:
   # Name of the location where Home Assistant is running
   name: Home
@@ -156,4 +158,3 @@ telegram_bot:
 group: !include groups.yaml
 automation: !include_dir_list auto
 script: !include scripts.yaml
-
