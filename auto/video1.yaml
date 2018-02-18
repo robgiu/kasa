@@ -1,0 +1,10 @@
+trigger:
+    - platform: event
+      event_type: telegram_command
+      event_data:
+        command: '/Video1'
+action:
+    - service: media_extractor.play_media
+      data:
+        media_content_id: 'https://youtu.be/l5woYrqGF3s'
+        media_content_type: 'video/mp4'

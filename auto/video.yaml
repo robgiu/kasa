@@ -1,0 +1,14 @@
+trigger:
+    - platform: event
+      event_type: telegram_command
+      event_data:
+        command: '/WatchVideo'
+action:
+    - service: telegram_bot.send_message
+      data_template:
+        message: '
+                  Here some videos to know Kasa Jasmina.'
+        keyboard:
+          - '/Video1, /Video2, /Video3'
+          - '/PauseVideo, /StopVideo'
+          - '/start'

@@ -11,7 +11,9 @@ action:
                 {{states.sensor.sonofft.state}}
                  Celsius degrees and an humidity of
                 {{states.sensor.sonoffh.state}} %.
+                You can watch some videos on the TV in Kasa Jasmina
+                or use the Roomba cleaner.
         keyboard:
-          - "/KnowTheHouse, /Meteo"
+          - "/WatchVideo, /roomba, /Meteo"
           - "/SwitchLightsON, /SwitchLightsOFF"
           - "/OpenDoorRequest, /start"

@@ -1,0 +1,8 @@
+trigger:
+    - platform: event
+      event_type: telegram_command
+      event_data:
+        command: '/SeekDock'
+action:
+    - service: vacuum.return_to_base
+      entity_id: vacuum.roomba

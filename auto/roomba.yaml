@@ -1,0 +1,13 @@
+trigger:
+    - platform: event
+      event_type: telegram_command
+      event_data:
+        command: '/roomba'
+action:
+    - service: telegram_bot.send_message
+      data_template:
+        message: >
+                Here you can command the Roomba cleaner. 
+        keyboard:
+          - "/Clean, /Stop, /SeekDock"
+          - "/KnowTheHouse, /start"

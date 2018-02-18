@@ -1,0 +1,13 @@
+trigger:
+    - platform: event
+      event_type: telegram_command
+      event_data:
+        command: '/Video3'
+action:
+    - service: notify.telegram
+      data:
+        title: Video intro
+        message: A video from Kasa Jasmina
+        data:
+          video:
+            -  file: /home/homeassistant/.homeassistant/video/AnxaA.mp4

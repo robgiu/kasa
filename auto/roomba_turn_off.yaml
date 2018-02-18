@@ -1,0 +1,8 @@
+trigger:
+    - platform: event
+      event_type: telegram_command
+      event_data:
+        command: '/Stop'
+action:
+    - service: vacuum.turn_off
+      entity_id: vacuum.roomba
